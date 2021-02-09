@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+    <title>Papers</title>
+</head>
+<body>
+    <div class ="container">
+        <h1 class="mb-4">Welcome to Technical Paper Section</h1>
+        <a href="/papers/new" class="btn">New Paper</a>
+        <a href="/" class="btn">back to Home Page</a>
+
+        <% papers.forEach(paper => { %>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h4 class="card-title"><%= paper.title %></h4>
+                    <div class="card-subtitle text-muted mb-2"> 
+                        <%= paper.author %>
+                    </div>
+                    <div class="card-subtitle text-muted mb-2"> <!--can add .toLocaleDateString()... for stort data-->
+                        <%= paper.createdAt %>
+                    </div>
+                    <div class="card-text mb-2">
+                        <%= paper.description %>
+                    </div>
+                    <a href="<%= paper.slug %>" class="btn btn-primary">Read More</a>
+                    <a href="/papers/edit/<%= paper.id %>" class="btn btn-info">Edit</a>
+                    <form action="/papers/<%= paper.id %>?_method=DELETE" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <%        })%>
+
+    </div>
+</body>
+</html>
