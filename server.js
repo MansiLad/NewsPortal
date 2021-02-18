@@ -25,33 +25,35 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use(methodOverride('_method'))
 
-app.use(express.static('static'))
+// app.use(express.static('static'))
+// app.use("/static", express.static('./static/'));
+app.use(express.static(path.join(__dirname, 'static/')));
 
 app.get('/', async(req, res) => {
     res.render('index')
 })
 
-app.get('/articles', async(req, res) => {
-    const articles = await Article.find().sort({
-        createdAt: 'desc'
-    })
-    res.render('articles/articles', { articles: articles})
-})
-app.use('/articles', articlesRouter)
-
 app.get('/news', async(req, res) => {
     const news = await News.find().sort({
         createdAt: 'desc'
     })
-    res.render('news/technews', { news: news})
+    res.render('news/index', { news: news})
 })
 app.use('/news', newsRouter)
+
+app.get('/articles', async(req, res) => {
+    const articles = await Article.find().sort({
+        createdAt: 'desc'
+    })
+    res.render('articles/index', { articles: articles})
+})
+app.use('/articles', articlesRouter)
 
 app.get('/papers', async(req, res) => {
     const papers = await Papers.find().sort({
         createdAt: 'desc'
     })
-    res.render('papers/papers', { papers: papers})
+    res.render('papers/index', { papers: papers})
 })
 app.use('/papers', papersRouter)
 
